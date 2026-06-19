@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Function Types Demo</title>
+    <style>
+        body { font-family: sans-serif; margin: 20px; line-height: 1.6; background-color: #f4f4f4; color: #333; }
+        h1 { color: #0056b3; }
+        .container { background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); max-width: 800px; margin: 20px auto; }
+        p { margin-bottom: 10px; }
+        .output-message { background-color: #e9f7ef; border-left: 5px solid #28a745; padding: 8px 15px; margin-bottom: 10px; border-radius: 4px; }
+        .info-message { background-color: #e0f7fa; border-left: 5px solid #17a2b8; padding: 8px 15px; margin-bottom: 10px; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>JavaScript Function Types Demo</h1>
+        <p class="info-message">This page demonstrates various JavaScript function types. Open your browser's developer console (F12) to see all output.</p>
+        <div id="output"></div>
+    </div>
+
+    <script>
+        const outputDiv = document.getElementById('output');
+
+        // Helper function to display messages on the page and in the console
+        function logAndDisplay(message, type = 'output-message') {
+            const p = document.createElement('p');
+            p.className = type;
+            p.textContent = message;
+            outputDiv.appendChild(p);
+            console.log(message);
+        }
+
+        logAndDisplay("--- Demonstrating JavaScript Function Types ---", 'info-message');
+
+        // 1. Function Declaration (Geleneksel Fonksiyon Tanımlaması)
+        // Hoisted: Can be called before its definition in the code.
+        function greetDeclaration(name) {
+            return `Hello, ${name}! (from Function Declaration)`;
+        }
+        logAndDisplay(greetDeclaration("Alice"));
+
+        // 2. Function Expression (Fonksiyon İfadesi)
+        // Not hoisted: Must be defined before it's called.
+        const greetExpression = function(name) {
+            return `Hi there, ${name}! (from Function Expression)`;
+        };
+        logAndDisplay(greetExpression("Bob"));
+
+        // 3. Arrow Function (Ok Fonksiyonu) - Modern JavaScript (ES6+)
+        // Concise syntax, 'this' binding differs from traditional functions.
+        const greetArrow = (name) => {
+            return `Greetings, ${name}! (from Arrow Function)`;
+        };
+        logAndDisplay(greetArrow("Charlie"));
+
+        // Arrow function with implicit return (single expression body)
+        const multiply = (a, b) => a * b;
+        logAndDisplay(`5 * 3 = ${multiply(5, 3)} (from Arrow Function - implicit return)`);
+
+        // 4. Immediately Invoked Function Expression (IIFE)
+        // Runs immediately after definition, often used for scope isolation.
+        (function() {
+            const message = "This message is from a traditional IIFE.";
+            logAndDisplay(message);
+        })();
+
+        // Arrow IIFE
+        (() => {
+            const message = "This message is from an Arrow IIFE.";
+            logAndDisplay(message);
+        })();
+
+        // 5. Object Method (Bir Nesne Metodu)
+        const person = {
+            name: "David",
+            // Method using function expression syntax
+            sayHello: function() {
+                return `Hello, my name is ${this.name}. (from Object Method - expression)`;
+            },
+            // Method using concise method syntax (ES6+)
+            sayGoodbye(farewell) {
+                return `Goodbye, ${this.name}! ${farewell} (from Object Method - concise)`;
+            }
+        };
+        logAndDisplay(person.sayHello());
+        logAndDisplay(person.sayGoodbye("See you later!"));
+
+        logAndDisplay("--- End of Demo ---", 'info-message');
+    </script>
+</body>
+</html>
